@@ -6,30 +6,21 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.compose.Material3TutorialTheme
@@ -124,7 +114,6 @@ fun TextFieldScreen(navController: NavController) {
                 OutlinedTextField(
                     value = outlinedText,
                     onValueChange = { outlinedText = it },
-                    //Чтобы изменить только один параметр текста, стоит вызвать метод .copy и прописать нужное свойство
                     textStyle = LocalTextStyle.current.copy(
                         color = Color.Yellow
                     ),
@@ -166,9 +155,24 @@ fun TextFieldScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 //По умолчанию прозрачный, но полностью изменяемый
+                //Не относится к Material 3
                 BasicTextField(
                     value = basicText,
-                    onValueChange = { basicText = it }
+                    onValueChange = { basicText = it },
+                    textStyle = LocalTextStyle.current.copy(
+                        color = Color.Yellow,
+                        background = Color.White
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    keyboardActions = KeyboardActions(
+                    ),
+                    singleLine = true,
+                    maxLines = 1,
+                    minLines = 1,
+                    enabled = enabled
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 Button(
@@ -184,18 +188,18 @@ fun TextFieldScreen(navController: NavController) {
                 ) {
                     Button(
                         onClick = {
-                            navController.navigate(Screen.ButtonScreen.route)
+                            navController.popBackStack()
                         },
                     ) {
-                        Text(text = "TextField Tutorial")
+                        Text(text = "Prev. Tutorial")
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = {
-//                            navController.navigate(Screen.TextFieldScreen.route)
+                            navController.navigate(Screen.CheckScreen.route)
                         },
                     ) {
-                        Text(text = "TextField Tutorial")
+                        Text(text = "Next Tutorial")
                     }
                 }
             }
